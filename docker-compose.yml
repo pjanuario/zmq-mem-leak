@@ -1,0 +1,19 @@
+version: '2'
+services:
+  broker:
+    build: .
+    image: zmq-mem-leak
+    container_name: zmq-mem-leak.broker
+    command: node broker.js
+    environment:
+      NODE_ENV: development
+
+  srv:
+    build: .
+    image: zmq-mem-leak
+    container_name: zmq-mem-leak.srv
+    links:
+      - broker
+    command: node srv.js
+    environment:
+      NODE_ENV: development
